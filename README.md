@@ -12,9 +12,10 @@ That's 2460 games to account for.
 This application will have a timeline for which ever team you select, and have a short timeline and timer to show the route a team takes, including the time frame where they start, their roadtrips, and going from mid October to mid May.
 
 #### Functionality and MVP
-* Renders Interactive Google Maps
+* Renders Interactive MapBox
 * Sports API gathering NBA season schedule
 * Animation of team travling from city to city based on time
+* GeoJSON
 
 #### Implementation Timeline
 

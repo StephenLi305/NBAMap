@@ -1,27 +1,73 @@
 <!doctype html>
   <html>
    <head>
-     <title>Getting Started</title>
+     <title>NBA Maps</title>
 
 
      <script src='https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
      <link href='https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+     <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+      </style>
    </head>
    <body>
-     <script src="bundle.js"></script>
+    <script src="bundle.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+    <div id='map'></div>
+    <button id='pause'></button>
 
-     <div id='map' style='width: 800px; height: 600px;'></div>
+    <style>
+      button {
+        position: absolute;
+        margin: 20px;
+      }
+      #pause::after {
+        content: 'Pause';
+      }
+      #pause.pause::after {
+        content: 'Play';
+      }
+    </style>
+
+
+    <!-- map -->
     <script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoic3RlcGhlbmxpMzA1IiwiYSI6ImNqbncyaWR0ZzFsc2MzcW1rNWczbnVqeDYifQ.afmueMPaXRJ1f4XXcG0IgA';
-    var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v10',
-    center: [-122.271111, 37.804363], // starting position
-    zoom: 12 // starting zoom
-    });
-    map.addControl(new mapboxgl.NavigationControl());
+      mapboxgl.accessToken = 'pk.eyJ1Ijoic3RlcGhlbmxpMzA1IiwiYSI6ImNqbncyaWR0ZzFsc2MzcW1rNWczbnVqeDYifQ.afmueMPaXRJ1f4XXcG0IgA';
+      var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v10',
+      center: [-122.271111, 37.804363], // starting position
+      zoom: 12 // starting zoom
+      });
+      map.addControl(new mapboxgl.NavigationControl());
+      map.addControl(new MapboxGeocoder({
+          accessToken: mapboxgl.accessToken
+      })); //search bar
+      
+      var oaklandgeojson = {
+          "type": "FeatureCollection",
+          "features": [{
+              "type": "Feature",
+              "geometry": {
+                  "type": "LineString",
+                  "coordinates": [
+                      [-122.271111, 37.804363]
+                  ]
+              }
+          }]
+      };
+
+      var speedFactor = 30; // number of frames per longitude degree
+      var animation; // to store and cancel the animation
+      var startTime = 0;
+      var progress = 0; // progress = timestamp - startTime
+      var resetTime = false; // indicator of whether time reset is needed for the animation
+      var pauseButton = document.getElementById('pause');
 
     </script>
+
 
 
    </body>
