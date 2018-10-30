@@ -31,3 +31,7 @@ Thursday
 
 Friday        
 [] Fix bugs / Implement other sport teams (NFL, MLB, NCAA)
+
+
+#### Future Features
+Include other professional sport teams and college teams
