@@ -2,8 +2,27 @@
   <html>
    <head>
      <title>Getting Started</title>
+
+
+     <script src='https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
+     <link href='https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
    </head>
    <body>
      <script src="bundle.js"></script>
+
+     <div id='map' style='width: 800px; height: 600px;'></div>
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic3RlcGhlbmxpMzA1IiwiYSI6ImNqbncyaWR0ZzFsc2MzcW1rNWczbnVqeDYifQ.afmueMPaXRJ1f4XXcG0IgA';
+    var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v10',
+    center: [-122.271111, 37.804363], // starting position
+    zoom: 12 // starting zoom
+    });
+    map.addControl(new mapboxgl.NavigationControl());
+
+    </script>
+
+
    </body>
   </html>

@@ -17,7 +17,8 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.1.0",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "mapbox-gl": "^0.50.0"
   },
   "repository": {
     "type": "git",
