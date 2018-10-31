@@ -45,7 +45,7 @@
       map.addControl(new MapboxGeocoder({
           accessToken: mapboxgl.accessToken
       })); //search bar
-      
+
       var oaklandgeojson = {
           "type": "FeatureCollection",
           "features": [{
@@ -58,6 +58,8 @@
               }
           }]
       };
+
+
 
       var speedFactor = 30; // number of frames per longitude degree
       var animation; // to store and cancel the animation
@@ -72,3 +74,17 @@
 
    </body>
   </html>
+<!--
+while timestamp is under endtime
+
+x = starting x + (ending x - starting x) * % done
+y = starting y + (ending y - starting y) * % done
+
+%done = (timestamp - start time )/ endtime
+start time = 0
+end time = 5 -->
+
+<!-- var oakland = {"coordinates" : [-122.271111, 37.804363] }
+var losangeles = {"coordinates" : [-122.271111, 37.804363] } -->
+
+<!-- https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect -->
