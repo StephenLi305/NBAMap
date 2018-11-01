@@ -12,7 +12,6 @@
     </style>
 </head>
 <body>
-  <script src="bundle.js"></script>
 
 <style>
 button {
@@ -30,7 +29,6 @@ button {
 </style>
 <div id='map'></div>
 <button id='pause'></button>
-
 <script>
 mapboxgl.accessToken = 'pk.eyJ1Ijoic3RlcGhlbmxpMzA1IiwiYSI6ImNqbncyaWR0ZzFsc2MzcW1rNWczbnVqeDYifQ.afmueMPaXRJ1f4XXcG0IgA';
 var map = new mapboxgl.Map({
@@ -48,29 +46,11 @@ var geojson = {
         "geometry": {
             "type": "LineString",
             "coordinates": [
-                [-122.271111, 37.804363]
+                [0, 0]
             ]
         }
     }]
 };
-
-
-var losangelesgeojson = {
-  "type": "FeatureCollection",
-  "features": [{
-    "type": "Feature",
-    "geometry": {
-      "type": "LineString",
-      "coordinates": [
-      [118.2437, 34.0522]
-      ]
-    }
-  }]
-};
-
-
-var oakland = {"coordinates" : [-122.271111, 37.804363] }
-var losangeles = {"coordinates" : [118.2437, 34.0522] }
 
 var speedFactor = 30; // number of frames per longitude degree
 var animation; // to store and cancel the animation
@@ -80,6 +60,7 @@ var resetTime = false; // indicator of whether time reset is needed for the anim
 var pauseButton = document.getElementById('pause');
 
 map.on('load', function() {
+
     // add the line which will be modified in the animation
     map.addLayer({
         'id': 'line-animation',
@@ -131,18 +112,17 @@ map.on('load', function() {
         }
 
         // restart if it finishes a loop
-        if (10 > (timestamp - startTime) / 1000) {
+        if (progress > speedFactor * 360) {
             startTime = timestamp;
             geojson.features[0].geometry.coordinates = [];
         } else {
-            var x = oakland.coordinates[0] - losangeles.coordinates[0];
+            var x = progress / speedFactor;
             // draw a sine wave with some math.
-            var y = oakland.coordinates[1] - losangeles.coordinates[1] ;
+            var y = Math.sin(x * Math.PI / 90) * 40;
             // append new coordinates to the lineString
             geojson.features[0].geometry.coordinates.push([x, y]);
             // then update the map
             map.getSource('line-animation').setData(geojson);
-            console.log((timestamp - startTime) / 1000);
         }
         // Request the next frame of the animation.
         animation = requestAnimationFrame(animateLine);
