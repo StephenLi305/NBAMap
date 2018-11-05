@@ -46,15 +46,14 @@ const MEM = new City(-90.0490, 35.1495, "MEM")
 const NOP = new City(-90.0715, 29.9511, "NOP")
 const SAS = new City(-98.4936, 29.4241, "SAS")
 
-
+const center = new City(-98.5795, 39.8283, "center" )
 mapboxgl.accessToken = 'pk.eyJ1Ijoic3RlcGhlbmxpMzA1IiwiYSI6ImNqbncyaWR0ZzFsc2MzcW1rNWczbnVqeDYifQ.afmueMPaXRJ1f4XXcG0IgA';
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v9',
-    center: [-122.271111, 37.804363],
-    zoom: 2
+    center: center.pos,
+    zoom: 4
 });
-
 
 function createRoute(cities){
   let result = []
