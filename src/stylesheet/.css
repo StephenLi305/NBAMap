@@ -1,16 +1,9 @@
-
-  body {
-    margin:0;
-    padding:0;
-  }
-
-  #map {
-    position:absolute;
-    top:0;
-    bottom:0;
-    width:100%;
-  }
-
+#map {
+  position: absolute;
+  top:0;
+  bottom:0;
+  width:100%;
+}
 
 .overlay {
     position: absolute;
@@ -28,8 +21,4 @@
     border: none;
     cursor: pointer;
     border-radius: 3px;
-}
-
-.overlay button:hover {
-    background-color:#4ea0da;
 }

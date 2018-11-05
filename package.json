@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.1.0",
+    "@turf/line-distance": "^4.7.3",
+    "@turf/turf": "^5.1.6",
     "lodash": "^4.17.11",
     "mapbox-gl": "^0.50.0"
   },

@@ -72,9 +72,11 @@ var route = {
         }
     }]
 };
+// point.features[0].geometry.coordinates = route.features[0].geometry.coordinates[counter];
+// turf.point(route.features[0].geometry.coordinates[counter >= steps ? counter - 1 : counter]),
 
-const testRoute = {"coordinates": [origin, destination]}
-// A single point that animates along the route.
+
+    // A single point that animates along the route.
 // Coordinates are initially set to origin.
 var point = {
     "type": "FeatureCollection",
@@ -88,17 +90,17 @@ var point = {
     }]
 };
 
-const testPoint = { "coordinates": origin}
 
 // Calculate the distance in kilometers between route start/end point.
 var lineDistance = turf.lineDistance(route.features[0], 'kilometers');
+// var lineDistance2 = turf.lineDistance(route2.features[0], 'kilometers');
 
 var arc = [];
 
 // Number of steps to use in the arc and animation, more steps means
 // a smoother arc and animation, but too many steps will result in a
 // low frame rate
-var steps = 100;
+var steps = 250;
 
 // Draw an arc between the `origin` & `destination` of the two points
 for (var i = 0; i < lineDistance; i += lineDistance / steps) {
@@ -106,8 +108,10 @@ for (var i = 0; i < lineDistance; i += lineDistance / steps) {
     arc.push(segment.geometry.coordinates);
 }
 
+
 // Update the route with calculated arc coordinates
 route.features[0].geometry.coordinates = arc;
+// route2.features[0].geometry.coordinates = arc;
 
 // Used to increment the value of the point measurement against the route.
 var counter = 0;
@@ -119,10 +123,6 @@ map.on('click', function () {
         "data": route
     });
 
-    map.addSource('point', {
-        "type": "geojson",
-        "data": point
-    });
 
     map.addLayer({
         "id": "route",
@@ -132,6 +132,11 @@ map.on('click', function () {
             "line-width": 2,
             "line-color": "#FDB927"
         }
+    });
+
+    map.addSource('point', {
+      "type": "geojson",
+      "data": point
     });
 
     map.addLayer({
@@ -150,7 +155,9 @@ map.on('click', function () {
     function animate() {
         // Update point geometry to a new position based on counter denoting
         // the index to access the arc.
+        // debugger
         point.features[0].geometry.coordinates = route.features[0].geometry.coordinates[counter];
+        // point2.features[0].geometry.coordinates = route2.features[0].geometry.coordinates[counter];
 
         // Calculate the bearing to ensure the icon is rotated to match the route arc
         // The bearing is calculate between the current point and the next point, except
@@ -159,11 +166,12 @@ map.on('click', function () {
             turf.point(route.features[0].geometry.coordinates[counter >= steps ? counter - 1 : counter]),
             turf.point(route.features[0].geometry.coordinates[counter >= steps ? counter : counter + 1])
         );
-
-
         // Update the source with this new data.
         map.getSource('point').setData(point);
-        console.log(point.features[0].geometry.coordinates);
+        // console.log(map.getSource('point').setData(point));
+        // map.getSource('point').setData(point2);
+        // console.log(point.features[0].geometry.coordinates);
+        // console.log(point2.features[0].geometry.coordinates);
 
         // Request the next frame of animation so long the end has not been reached.
         if (counter < steps) {
@@ -175,7 +183,7 @@ map.on('click', function () {
 
     document.getElementById('replay').addEventListener('click', function() {
         // Set the coordinates of the original point back to origin
-        point.features[0].geometry.coordinates = origin;
+        point1.features[0].geometry.coordinates = origin;
 
         // Update the source layer
         map.getSource('point').setData(point);
@@ -190,6 +198,9 @@ map.on('click', function () {
     // Start the animation.
     animate(counter);
 });
+
+
+
 </script>
 
 </body>
