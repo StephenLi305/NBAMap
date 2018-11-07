@@ -47,13 +47,17 @@ const NOP = new City(-90.0715, 29.9511, "NOP")
 const SAS = new City(-98.4936, 29.4241, "SAS")
 
 const center = new City(-98.5795, 39.8283, "center" )
+
 mapboxgl.accessToken = 'pk.eyJ1Ijoic3RlcGhlbmxpMzA1IiwiYSI6ImNqbncyaWR0ZzFsc2MzcW1rNWczbnVqeDYifQ.afmueMPaXRJ1f4XXcG0IgA';
-const map = new mapboxgl.Map({
+let map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v9',
     center: center.pos,
     zoom: 4
 });
+map.addControl(new mapboxgl.NavigationControl())
+
+
 
 function createRoute(cities){
   let result = []
@@ -66,15 +70,11 @@ function createRoute(cities){
   return result
 }
 
-// let cities = [SF, LA, Reno]
-// console.log(createRoute(cities));
-
 function drawRoute(route){
   map.addSource( `${route.getID()}-line`, {
     "type":"geojson",
     "data": route.route()
   }),
-
 
   map.addLayer({
       "id": `${route.getID()}-line`,
@@ -85,8 +85,6 @@ function drawRoute(route){
           "line-color": "#FDB927"
       }
   });
-
-
 }
 
 function drawAirplane(planeData){
@@ -110,8 +108,7 @@ function drawAirplane(planeData){
 }
 
 
-// const steps = 250
-const steps = 200
+const steps = 100
 
 // route.route().features[0].geometry.coordinates = route.arc()
 function annimateAirplane(planeObject, fullArc, counter = 0){
@@ -130,9 +127,12 @@ function annimateAirplane(planeObject, fullArc, counter = 0){
   }
 }
 
-map.on('click', function(){
+const flyOAK = document.getElementById('OAK')
+
+
+function flying(){
   // put in a list of cities in this array
-  let cities = [OAK,LA, PHX, HOU, DAL, OKC, MIA, MEM, ORL, CHA, BOS, NYC, TOR, CLE, MIN, UTA, POR, OAK]
+  let cities = [OAK,LA, PHX, HOU, DAL, OKC, MIA, PHI, MEM, ORL, CHA, BOS, NYC, TOR, CLE, MIN, UTA, POR, OAK]
   let routes = createRoute(cities)
   let planeObject =
     {
@@ -155,7 +155,8 @@ map.on('click', function(){
   drawAirplane(planeObject)
   annimateAirplane(planeObject, fullArc);
 
-})
+}
 
+flyOAK.addEventListener('click', () => flying())
 
 export default map
