@@ -131,8 +131,13 @@ const flyOAK = document.getElementById('OAK')
 
 
 function flying(){
+  // debugger
+  // console.log("hi");
   // put in a list of cities in this array
-  let cities = [OAK,LA, PHX, HOU, DAL, OKC, MIA, PHI, MEM, ORL, CHA, BOS, NYC, TOR, CLE, MIN, UTA, POR, OAK]
+  let cities = [OAK,LA,PHX,OAK]
+  let origin_city = cities[0].pos
+  console.log(origin_city);
+  // let cities = [OAK,LA, PHX, HOU, DAL, OKC, MIA, PHI, MEM, ORL, CHA, BOS, NYC, TOR, CLE, MIN, UTA, POR, OAK]
   let routes = createRoute(cities)
   let planeObject =
     {
@@ -154,9 +159,22 @@ function flying(){
   planeObject.features[0].geometry.coordinates = routes[0].origin.pos
   drawAirplane(planeObject)
   annimateAirplane(planeObject, fullArc);
-
 }
 
 flyOAK.addEventListener('click', () => flying())
+
+
+
+
+const remove = document.getElementById('Remove')
+
+function removeLayer(){
+  flyOAK.hideLayer
+}
+
+// remove.addEventListener('click', () => removeLayer())
+remove.addEventListener('click', () => {console.log("yo");})
+
+
 
 export default map
