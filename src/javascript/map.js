@@ -4,6 +4,8 @@ import City from './city.js'
 import Route from './route.js'
 // import { data } from '../API/api.js'
 
+
+
 // Atlantic
 const BOS = new City(-71.0589, 42.3601, "BOS")
 const BKN = new City(-73.9442, 40.6782, "BKN")
@@ -48,6 +50,8 @@ const SAS = new City(-98.4936, 29.4241, "SAS")
 
 const center = new City(-98.5795, 39.8283, "center" )
 
+
+
 mapboxgl.accessToken = 'pk.eyJ1Ijoic3RlcGhlbmxpMzA1IiwiYSI6ImNqbncyaWR0ZzFsc2MzcW1rNWczbnVqeDYifQ.afmueMPaXRJ1f4XXcG0IgA';
 let map = new mapboxgl.Map({
     container: 'map',
@@ -71,6 +75,7 @@ function createRoute(cities){
 }
 
 function drawRoute(route){
+  // console.log(route);
   map.addSource( `${route.getID()}-line`, {
     "type":"geojson",
     "data": route.route()
@@ -86,6 +91,23 @@ function drawRoute(route){
       }
   });
 }
+
+function clearRoute(route){
+  map.addSource( `${route.getID()}-line`, {
+    "type":"geojson",
+    "data": ""
+  }),
+
+  map.addLayer({
+      "id": `${route.getID()}-line`,
+      "source": `${route.getID()}-line`,
+      "type": "",
+      "paint": {
+      }
+  });
+}
+
+
 
 function drawAirplane(planeData){
   map.addSource( 'plane', {
@@ -137,9 +159,10 @@ function flying(){
   // put in a list of cities in this array
   let cities = [OAK,LA,PHX,OAK]
   let origin_city = cities[0].pos
-  console.log(origin_city);
+  // console.log(origin_city);
   // let cities = [OAK,LA, PHX, HOU, DAL, OKC, MIA, PHI, MEM, ORL, CHA, BOS, NYC, TOR, CLE, MIN, UTA, POR, OAK]
   let routes = createRoute(cities)
+  console.log(routes);
   let planeObject =
     {
       "type": "FeatureCollection",
@@ -170,11 +193,19 @@ flyOAK.addEventListener('click', () => flying())
 const remove = document.getElementById('Remove')
 
 function removeLayer(){
-  flyOAK.hideLayer
+  let cities = [OAK,LA,PHX,OAK]
+  let routes = createRoute(cities)
+  for (var i = 0; i < routes.length; i++) {
+    clearRoute(routes[i])
+  }
+  // console.log(routes);
+  // debugger
+  // clearRoute(routes)
+  // console.log('hi');
 }
 
 // remove.addEventListener('click', () => removeLayer())
-remove.addEventListener('click', () => {console.log("yo");})
+remove.addEventListener('click', () => removeLayer())
 
 
 
