@@ -20,7 +20,9 @@
     "@turf/line-distance": "^4.7.3",
     "@turf/turf": "^5.1.6",
     "lodash": "^4.17.11",
-    "mapbox-gl": "^0.50.0"
+    "mapbox-gl": "^0.50.0",
+    "mysportsfeeds-node": "^2.0.1",
+    "request": "^2.88.0"
   },
   "repository": {
     "type": "git",

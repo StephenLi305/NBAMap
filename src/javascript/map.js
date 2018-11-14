@@ -2,7 +2,7 @@
 
 import City from './city.js'
 import Route from './route.js'
-
+// import { data } from '../API/api.js'
 
 // Atlantic
 const BOS = new City(-71.0589, 42.3601, "BOS")
@@ -131,6 +131,7 @@ const flyOAK = document.getElementById('OAK')
 
 
 function flying(){
+  // console.log(data);
   // debugger
   // console.log("hi");
   // put in a list of cities in this array
