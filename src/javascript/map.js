@@ -139,7 +139,7 @@ class Map {
   // let cities = [OAK,LA,PHX,OAK]
   // let origin_city = cities[0].pos
   // debugger
-  console.log(cities);
+  // console.log(cities);
   let origin_city = cities[0].name
   let routes = this.createRoute(cities)
   let planeObject =
@@ -165,33 +165,24 @@ class Map {
 }
 
  removeLayer(){
-
-
+   // debugger
    const cities = [OAK,LA, PHX]
 
    map.removeLayer('OAK')
    for (var i = 0; i < cities.length - 1; i++) {
      map.removeLayer(`${cities[i].name}${cities[i + 1].name}`)
-     map.removeSource(`${cities[i].name}${cities[i + 1].name}`)
-     // debugger
+     if (map.getStyle().sources[`${cities[i].name + cities[i + 1].name}`]) {map.removeSource(`${cities[i].name}${cities[i + 1].name}`)}
    }
-   setTimeout(map.removeSource('plane'), 0)
 
-
-
+   const laCities = [BOS, BKN, NYC]
    map.removeLayer('BOS')
-   map.removeLayer('BOSBKN')
-   map.removeLayer('BKNNYC')
+   for (var i = 0; i < laCities.length - 1; i++) {
+     map.removeLayer(`${laCities[i].name}${laCities[i + 1].name}`)
+     if (map.getStyle().sources[`${laCities[i].name + laCities[i + 1].name}`]) {map.removeSource(`${laCities[i].name}${laCities[i + 1].name}`)}
+   }
 
-   map.removeSource('BOSBKN')
-   map.removeSource('BKNNYC')
-
-
-   // const lacities = [BOS, BKN, NYC]
-
-
-   debugger
-
+   setTimeout(map.removeSource('plane'),0)
+   // debugger
  }
 }
 const mapclass = new Map()
