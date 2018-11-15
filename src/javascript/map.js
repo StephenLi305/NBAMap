@@ -65,6 +65,7 @@ class Map {
     this.drawAirplane = this.drawAirplane.bind(this)
     this.annimateAirplane = this.annimateAirplane.bind(this)
 
+
   }
 
  createRoute(cities){
@@ -80,15 +81,15 @@ class Map {
 
  drawRoute(route){
 
-  map.addSource( `${route.getID()}-line`, {
+  map.addSource( `route-${route.getID()}`, {
     "type":"geojson",
     "data": route.route()
   }),
   console.log(route),
 
   map.addLayer({
-      "id": `${route.getID()}-line`,
-      "source": `${route.getID()}-line`,
+      "id": `route-${route.getID()}`,
+      "source": `route-${route.getID()}`,
       "type": "line",
       "paint": {
           "line-width": 2,
@@ -97,29 +98,14 @@ class Map {
   });
 }
 
-//  clearRoute(route){
-//   map.addSource( `${route.getID()}-line`, {
-//     "type":"geojson",
-//     "data": ""
-//   }),
-//
-//   map.addLayer({
-//       "id": `${route.getID()}-line`,
-//       "source": `${route.getID()}-line`,
-//       "type": "",
-//       "paint": {
-//       }
-//   });
-// }
-
- drawAirplane(planeData){
+ drawAirplane(planeData, origin){
   map.addSource( 'plane', {
     "type": "geojson",
     "data": planeData
   });
 
   map.addLayer({
-    "id": 'plane',
+    "id": origin,
     "source": 'plane',
     "type": "symbol",
     "layout": {
@@ -151,9 +137,11 @@ class Map {
  flying(cities){
   // put in a list of cities in this array
   // let cities = [OAK,LA,PHX,OAK]
-  let origin_city = cities[0].pos
+  // let origin_city = cities[0].pos
+  // debugger
+  console.log(cities);
+  let origin_city = cities[0].name
   let routes = this.createRoute(cities)
-  // console.log(routes);
   let planeObject =
     {
       "type": "FeatureCollection",
@@ -172,24 +160,36 @@ class Map {
     fullArc.push(...routes[i].arc(this.steps))
   }
   planeObject.features[0].geometry.coordinates = routes[0].origin.pos
-  this.drawAirplane(planeObject)
+  this.drawAirplane(planeObject, origin_city)
   this.annimateAirplane(planeObject, fullArc);
 }
 
  removeLayer(){
-   map.removeLayer('plane')
+   map.removeLayer('OAK')
+   map.removeSource('plane')
+   // map.removeSource('route-LAPHX')
+   // map.removeSource('OAK')
+   for (var i = 189; i < map.getStyle().layers.length; i++) {
+    const layers = map.getStyle().layers[i]
+    map.removeLayer(layers.id)
+   }
+
+   // for (var i = 1; i < Object.values(map.getStyle().sources).length; i++) {
+   //   const sources = Object.values(map.getStyle().sources)[i]
+   //   map.removeSource(sources.)
+   // }
 
    debugger
-   // map.
  }
 
+ // debugger
 }
+const mapclass = new Map()
+
+
 const remove = document.getElementById('Remove')
 remove.addEventListener('click', () => mapclass.removeLayer())
 
-
-
-const mapclass = new Map()
 const cities = [OAK,LA, PHX]
 const flyOAK = document.getElementById('OAK')
 flyOAK.addEventListener('click', () => mapclass.flying(cities))

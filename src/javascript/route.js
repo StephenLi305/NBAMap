@@ -6,7 +6,7 @@ class Route {
     this.destinationPoint = this.destinationPoint.bind(this)
     this.distance = this.distance.bind(this)
     this.route = this.route.bind(this)
-    this.id = `${origin.name}-${destination.name}`
+    this.id = `${origin.name}${destination.name}`
   }
 
   getID(){
