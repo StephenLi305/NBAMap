@@ -32,7 +32,7 @@ const POR = new City(-122.6587, 45.5122, "POR")
 const UTA = new City(-111.8910, 40.7608, "UTA")
 
 // Pacific
-const OAK = new City(-122.414, 37.776, "OAK")
+const OAK = new City(-122.2030, 37.7503, "OAK")
 const LA = new City(-118.2437, 34.0522, "LA")
 const PHX = new City(-112.0740, 33.4484, "PHX")
 const SAC = new City(-121.4944, 38.5816, "SAC")
@@ -171,41 +171,45 @@ class Map {
 
  removeLayer(){
 
-   const cities = [OAK,UTA, DEN, OAK]
+   const route1 = [OAK,UTA, DEN, OAK]
    map.removeLayer('OAK')
-   for (var i = 0; i < cities.length - 1; i++) {
-     // if (map.getStyle().layers[`${cities[i].name + cities[i + 1].name}`]) {map.removeLayer(`${cities[i].name}${cities[i + 1].name}`)}
-     map.removeLayer(`${cities[i].name}${cities[i + 1].name}`) // refactor in future to get rid of minor errors
-     if (map.getStyle().sources[`${cities[i].name + cities[i + 1].name}`]) {map.removeSource(`${cities[i].name}${cities[i + 1].name}`)}
+   for (var i = 0; i < route1.length - 1; i++) {
+     // if (map.getStyle().layers[`${route1[i].name + route1[i + 1].name}`]) {map.removeLayer(`${route1[i].name}${route1[i + 1].name}`)}
+     map.removeLayer(`${route1[i].name}${route1[i + 1].name}`) // refactor in future to get rid of minor errors
+     if (map.getStyle().sources[`${route1[i].name + route1[i + 1].name}`]) {map.removeSource(`${route1[i].name}${route1[i + 1].name}`)}
    }
 
-   const laCities = [OAK, NYC, BKN, CHI, OAK]
-   map.removeLayer('BOS')
-   for (var i = 0; i < laCities.length - 1; i++) {
-     map.removeLayer(`${laCities[i].name}${laCities[i + 1].name}`)
-     if (map.getStyle().sources[`${laCities[i].name + laCities[i + 1].name}`]) {map.removeSource(`${laCities[i].name}${laCities[i + 1].name}`)}
+   const route2 = [OAK, NYC, BKN, CHI, OAK]
+   for (var i = 0; i < route2.length - 1; i++) {
+     map.removeLayer(`${route2[i].name}${route2[i + 1].name}`)
+     if (map.getStyle().sources[`${route2[i].name + route2[i + 1].name}`]) {map.removeSource(`${route2[i].name}${route2[i + 1].name}`)}
    }
 
-   // map.removeSource('plane')
+   const route3 = [OAK, LA, OAK]
+   for (var i = 0; i < route3.length - 1; i++) {
+     map.removeLayer(`${route3[i].name}${route3[i + 1].name}`)
+     if (map.getStyle().sources[`${route3[i].name + route3[i + 1].name}`]) {map.removeSource(`${route3[i].name}${route3[i + 1].name}`)}
+   }
+
    setTimeout(map.removeSource('plane'),0)
  }
 }
 const mapclass = new Map()
-
-
-const remove = document.getElementById('Remove')
-remove.addEventListener('click', () => mapclass.removeLayer())
-
 
 //First Road Trip
 const route1 = [OAK,UTA, DEN, OAK]
 const fly1 = document.getElementById('OAK1')
 fly1.addEventListener('click', () => mapclass.flying(route1))
 
-
+//Second Road Trip
 const route2 = [OAK, NYC, BKN, CHI, OAK]
 const fly2 = document.getElementById('OAK2')
 fly2.addEventListener('click', () => mapclass.flying(route2))
+
+//Third Road Trip
+const route3 = [OAK, LA, OAK]
+const fly3 = document.getElementById('OAK3')
+fly3.addEventListener('click', () => mapclass.flying(route3))
 
 
 

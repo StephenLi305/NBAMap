@@ -9,3 +9,11 @@ button:hover{
   background-color: green;
   cursor: pointer;
 }
+
+header {
+  z-index: 999
+}
+
+div {
+  z-index: -999
+}
