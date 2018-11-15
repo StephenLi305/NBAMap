@@ -2,7 +2,6 @@
 
 import City from './city.js'
 import Route from './route.js'
-// import { data } from '../API/api.js'
 
 // Atlantic
 const BOS = new City(-71.0589, 42.3601, "BOS")
@@ -59,13 +58,14 @@ let map = new mapboxgl.Map({
 class Map {
   constructor(){
     this.steps = 100
+    this.grounded = true
+
     this.flying = this.flying.bind(this)
     this.createRoute = this.createRoute.bind(this)
     this.drawRoute = this.drawRoute.bind(this)
     this.drawAirplane = this.drawAirplane.bind(this)
     this.annimateAirplane = this.annimateAirplane.bind(this)
-
-
+    this.removeLayer = this.removeLayer.bind(this)
   }
 
  createRoute(cities){
@@ -132,17 +132,16 @@ class Map {
   if (counter < fullArc.length){
     requestAnimationFrame(() => this.annimateAirplane(planeObject, fullArc, counter + 1))
   }
+  // console.log(new Date());
 }
 
  flying(cities){
-  // put in a list of cities in this array
-  // let cities = [OAK,LA,PHX,OAK]
-  // let origin_city = cities[0].pos
-  // debugger
-  // console.log(cities);
-  let origin_city = cities[0].name
-  let routes = this.createRoute(cities)
-  let planeObject =
+
+  if (this.grounded){
+    this.grounded = false
+    let origin_city = cities[0].name
+    let routes = this.createRoute(cities)
+    let planeObject =
     {
       "type": "FeatureCollection",
       "features": [{
@@ -154,35 +153,41 @@ class Map {
       }]
     };
 
-  let fullArc = []
-  for (var i = 0; i < routes.length; i++) {
-    this.drawRoute(routes[i])
-    fullArc.push(...routes[i].arc(this.steps))
+    let fullArc = []
+    for (var i = 0; i < routes.length; i++) {
+      this.drawRoute(routes[i])
+      fullArc.push(...routes[i].arc(this.steps))
+    }
+    planeObject.features[0].geometry.coordinates = routes[0].origin.pos
+    this.drawAirplane(planeObject, origin_city)
+    this.annimateAirplane(planeObject, fullArc);
+    // setTimeout()
+  } else {
+    this.removeLayer()
+    this.grounded = true
+    this.flying(cities)
   }
-  planeObject.features[0].geometry.coordinates = routes[0].origin.pos
-  this.drawAirplane(planeObject, origin_city)
-  this.annimateAirplane(planeObject, fullArc);
 }
 
  removeLayer(){
-   // debugger
-   const cities = [OAK,LA, PHX]
 
+   const cities = [OAK,UTA, DEN, OAK]
    map.removeLayer('OAK')
    for (var i = 0; i < cities.length - 1; i++) {
-     map.removeLayer(`${cities[i].name}${cities[i + 1].name}`)
+     // if (map.getStyle().layers[`${cities[i].name + cities[i + 1].name}`]) {map.removeLayer(`${cities[i].name}${cities[i + 1].name}`)}
+     map.removeLayer(`${cities[i].name}${cities[i + 1].name}`) // refactor in future to get rid of minor errors
      if (map.getStyle().sources[`${cities[i].name + cities[i + 1].name}`]) {map.removeSource(`${cities[i].name}${cities[i + 1].name}`)}
    }
 
-   const laCities = [BOS, BKN, NYC]
+   const laCities = [OAK, NYC, BKN, CHI, OAK]
    map.removeLayer('BOS')
    for (var i = 0; i < laCities.length - 1; i++) {
      map.removeLayer(`${laCities[i].name}${laCities[i + 1].name}`)
      if (map.getStyle().sources[`${laCities[i].name + laCities[i + 1].name}`]) {map.removeSource(`${laCities[i].name}${laCities[i + 1].name}`)}
    }
 
+   // map.removeSource('plane')
    setTimeout(map.removeSource('plane'),0)
-   // debugger
  }
 }
 const mapclass = new Map()
@@ -191,12 +196,22 @@ const mapclass = new Map()
 const remove = document.getElementById('Remove')
 remove.addEventListener('click', () => mapclass.removeLayer())
 
-const cities = [OAK,LA, PHX]
-const flyOAK = document.getElementById('OAK')
-flyOAK.addEventListener('click', () => mapclass.flying(cities))
 
-const lacities = [BOS, BKN, NYC]
-const flyLAL = document.getElementById('LAL')
-flyLAL.addEventListener('click', () => mapclass.flying(lacities))
+//First Road Trip
+const route1 = [OAK,UTA, DEN, OAK]
+const fly1 = document.getElementById('OAK1')
+fly1.addEventListener('click', () => mapclass.flying(route1))
+
+
+const route2 = [OAK, NYC, BKN, CHI, OAK]
+const fly2 = document.getElementById('OAK2')
+fly2.addEventListener('click', () => mapclass.flying(route2))
+
+
+
+
+
+
+
 
 export default map
