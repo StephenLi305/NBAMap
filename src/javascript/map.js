@@ -81,15 +81,15 @@ class Map {
 
  drawRoute(route){
 
-  map.addSource( `route-${route.getID()}`, {
+  map.addSource( `${route.getID()}`, {
     "type":"geojson",
     "data": route.route()
   }),
   console.log(route),
 
   map.addLayer({
-      "id": `route-${route.getID()}`,
-      "source": `route-${route.getID()}`,
+      "id": `${route.getID()}`,
+      "source": `${route.getID()}`,
       "type": "line",
       "paint": {
           "line-width": 2,
@@ -166,12 +166,16 @@ class Map {
 
  removeLayer(){
    map.removeLayer('OAK')
+   map.removeLayer('OAKLA')
+   map.removeLayer('LAPHX')
+   // map.removeLayer('plane')
+
    map.removeSource('plane')
-   // map.removeSource('route-LAPHX')
-   // map.removeSource('OAK')
-   for (var i = 189; i < map.getStyle().layers.length; i++) {
+   map.removeSource('OAKLA')
+   map.removeSource('LAPHX')
+   for (var i = 188; i < map.getStyle().layers.length; i++) {
     const layers = map.getStyle().layers[i]
-    map.removeLayer(layers.id)
+    // map.removeLayer(layers.id)
    }
 
    // for (var i = 1; i < Object.values(map.getStyle().sources).length; i++) {
@@ -180,9 +184,8 @@ class Map {
    // }
 
    debugger
+   // window.location.reload()
  }
-
- // debugger
 }
 const mapclass = new Map()
 
