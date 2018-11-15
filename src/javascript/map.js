@@ -165,26 +165,33 @@ class Map {
 }
 
  removeLayer(){
+
+
+   const cities = [OAK,LA, PHX]
+
    map.removeLayer('OAK')
-   map.removeLayer('OAKLA')
-   map.removeLayer('LAPHX')
-   // map.removeLayer('plane')
-
-   map.removeSource('plane')
-   map.removeSource('OAKLA')
-   map.removeSource('LAPHX')
-   for (var i = 188; i < map.getStyle().layers.length; i++) {
-    const layers = map.getStyle().layers[i]
-    // map.removeLayer(layers.id)
+   for (var i = 0; i < cities.length - 1; i++) {
+     map.removeLayer(`${cities[i].name}${cities[i + 1].name}`)
+     map.removeSource(`${cities[i].name}${cities[i + 1].name}`)
+     // debugger
    }
+   setTimeout(map.removeSource('plane'), 0)
 
-   // for (var i = 1; i < Object.values(map.getStyle().sources).length; i++) {
-   //   const sources = Object.values(map.getStyle().sources)[i]
-   //   map.removeSource(sources.)
-   // }
+
+
+   map.removeLayer('BOS')
+   map.removeLayer('BOSBKN')
+   map.removeLayer('BKNNYC')
+
+   map.removeSource('BOSBKN')
+   map.removeSource('BKNNYC')
+
+
+   // const lacities = [BOS, BKN, NYC]
+
 
    debugger
-   // window.location.reload()
+
  }
 }
 const mapclass = new Map()
