@@ -52,7 +52,7 @@ let map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v9',
     center: center.pos,
-    zoom: 3
+    zoom: 3.25
 });
 
 class Map {
@@ -132,11 +132,9 @@ class Map {
   if (counter < fullArc.length){
     requestAnimationFrame(() => this.annimateAirplane(planeObject, fullArc, counter + 1))
   }
-  // console.log(new Date());
 }
 
  flying(cities){
-
   if (this.grounded){
     this.grounded = false
     let origin_city = cities[0].name
@@ -161,7 +159,6 @@ class Map {
     planeObject.features[0].geometry.coordinates = routes[0].origin.pos
     this.drawAirplane(planeObject, origin_city)
     this.annimateAirplane(planeObject, fullArc);
-    // setTimeout()
   } else {
     this.removeLayer()
     this.grounded = true
