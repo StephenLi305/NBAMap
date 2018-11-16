@@ -1,6 +1,6 @@
 # NBA Map
 
-Live Link(www.google.com)
+[Live Link](https://stephenli305.github.io/NBAMap/)
 
 #### Background and Overview
 
