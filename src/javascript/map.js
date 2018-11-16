@@ -52,7 +52,7 @@ let map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v9',
     center: center.pos,
-    zoom: 4
+    zoom: 3
 });
 
 class Map {

@@ -1,17 +1,32 @@
 button {
   position: absolute;
-  border: 5px black solid;
-  width:10%;
-  z-index: 999
+  border: 1px black solid;
+  width:20%;
+  z-index: 999;
+  overflow-wrap: break-word;
+  /* margin-top: 10%; */
+  color: #006BB6;
+  text-align: left;
 }
 
+body {
+  width: 20%;
+}
 button:hover{
-  background-color: green;
+  background-color: #FDB927;
   cursor: pointer;
 }
 
 header {
-  z-index: 999
+  z-index: 999;
+  color: #006BB6;
+  border: 1px black solid;
+  display: flex;
+  background-color: #faba00;
+  text-align: center;
+  justify-content: center;
+  font-family: copperplate;
+  font-size: 20px;
 }
 
 div {
