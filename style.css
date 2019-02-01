@@ -7,6 +7,7 @@ button {
   /* margin-top: 10%; */
   color: #006BB6;
   text-align: left;
+  border-radius: 10px;
 }
 
 body {
@@ -27,6 +28,7 @@ header {
   justify-content: center;
   font-family: copperplate;
   font-size: 20px;
+  border-radius: 10px;
 }
 
 div {
