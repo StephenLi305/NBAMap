@@ -198,7 +198,10 @@ class Map {
 
    for (let route of routes){     
      for (var i = 0; i < route.length - 1; i++) {
-       map.removeLayer(`${route[i].name}${route[i + 1].name}`) 
+        let layer = `${route[i].name}${route[i + 1].name}`
+        if(map.getLayer(layer)) {
+          map.removeLayer(layer) 
+        }
        if (map.getStyle().sources[`${route[i].name + route[i + 1].name}`]) {map.removeSource(`${route[i].name}${route[i + 1].name}`)}
      }
    }
