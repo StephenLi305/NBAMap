@@ -182,14 +182,14 @@ class Map {
     }
     planeObject.features[0].geometry.coordinates = routes[0].origin.pos
 
-    this.drawAirplane(planeObject, origin_city)
+    this.drawAirplane(planeObject, origin_city);
     this.annimateAirplane(planeObject, fullArc);
   } else {
     this.removeLayer()
-    cancelAnimationFrame(this.currentPlane)
-    this.currentPlane = null
-    this.grounded = true
-    this.flying(cities)
+    cancelAnimationFrame(this.currentPlane);
+    this.currentPlane = null;
+    this.grounded = true;
+    this.flying(cities);
   }
 }
 
