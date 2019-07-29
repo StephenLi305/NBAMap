@@ -59,6 +59,7 @@ class Map {
   constructor(){
     this.steps = 100
     this.grounded = true
+    this.currentPlane = null
 
     this.flying = this.flying.bind(this)
     this.createRoute = this.createRoute.bind(this)
@@ -85,7 +86,7 @@ class Map {
     "type":"geojson",
     "data": route.route()
   }),
-  console.log(route),
+  // console.log("draw", route),
 
   map.addLayer({
       "id": `${route.getID()}`,
@@ -128,17 +129,19 @@ class Map {
       turf.point(fullArc[counter >= this.steps ? counter - 1 : counter]),
       turf.point(fullArc[counter >= this.steps ? counter : counter + 1])
   );
-
+  // console.log(fullArc)
   if (counter < fullArc.length){
-    requestAnimationFrame(() => this.annimateAirplane(planeObject, fullArc, counter + 1))
+    this.currentPlane = requestAnimationFrame(() => this.annimateAirplane(planeObject, fullArc, counter + 1))
   }
 }
 
  flying(cities){
+   console.log(cities)
   if (this.grounded){
     this.grounded = false
     let origin_city = cities[0].name
     let routes = this.createRoute(cities)
+    // console.log(routes)
     let planeObject =
     {
       "type": "FeatureCollection",
@@ -152,21 +155,27 @@ class Map {
     };
 
     let fullArc = []
+    // debugger
     for (var i = 0; i < routes.length; i++) {
       this.drawRoute(routes[i])
       fullArc.push(...routes[i].arc(this.steps))
     }
     planeObject.features[0].geometry.coordinates = routes[0].origin.pos
+
     this.drawAirplane(planeObject, origin_city)
     this.annimateAirplane(planeObject, fullArc);
   } else {
     this.removeLayer()
+    cancelAnimationFrame(this.currentPlane)
+    this.currentPlane = null
     this.grounded = true
     this.flying(cities)
   }
 }
 
  removeLayer(){
+  //  kill the call stack
+
    // set to clear every route, will refactor in future
    const route1 = [OAK,UTA, DEN, OAK]
    map.removeLayer('OAK')
@@ -268,6 +277,8 @@ class Map {
    setTimeout(map.removeSource('plane'),0)
  }
 }
+
+
 const mapclass = new Map()
 
 //First Road Trip

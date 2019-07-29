@@ -69,7 +69,7 @@ distance(){
 
 
 
-arc(steps = 25){
+arc(steps = 100){
   const arc = [];
   const lineLength = this.distance(this.origin.pos,this.destination.pos)
   for (var i = 0; i < lineLength; i += lineLength / steps ) {
