@@ -40,7 +40,8 @@ div {
    left: 0;
    bottom: 0;
    width: 100%;
-   background-color: white;
+   height: 5%;
+   background-color: #faba00;
    color: black;
    text-align: center;
 }
