@@ -42,10 +42,11 @@ div {
    width: 100%;
    background-color: #faba00;
    text-align: center;
+   height:auto;
   }
   
-  i{
-    font-size: 40px;
-    margin: 15px;
-    color: black;
-  }
+i{
+  font-size: 40px;
+  margin: 15px;
+  color: black;
+}
