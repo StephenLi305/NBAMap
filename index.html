@@ -24,7 +24,7 @@
     <!-- jQuery Modal -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-
+    <!-- modal pop up on load -->
     <script type="text/javascript">
       $(window).on('load', function () {
         $('#myModal').modal('show');
@@ -69,14 +69,23 @@
     <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js' charset='utf-8'></script>
     <script src='./bundle.js'></script>
 
-    <div class="modal hide fade" id="myModal">
-      <div class="modal-header">
-        <h3>Modal header</h3>
-      </div>
-      <div class="modal-body">
-        <p>One fine body…</p>
-      </div>
-    </div>
+    <header class="modal hide fade" id="myModal">
+      <h3>
+        Golden State Warriors Visual Flight Simulation
+      </h3>
+      <p>
+        The motivation behind NBA Maps is my curiosity in the algorithm behind how a professional sports league comes out with
+        an algorithm to create a schedule for a season. I also have an interest in their travels and how each team travels over
+        the 7 months season across the country.
+      <br/>
+      <br/>
+        
+      This application has a simulation of the Golden State Warriors' 2018-2019 NBA schedule and each roadtrip they
+      made throughout the season. The beauty behind this is to show how many stops they make on a roadtrip
+      before going back home.
+      </p>
+      
+    </header>
 
 
     <div class="footer">
