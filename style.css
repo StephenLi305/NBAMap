@@ -17,7 +17,7 @@ button:hover{
   cursor: pointer;
 }
 
-header {
+header, modal {
   z-index: 999;
   color: #006BB6;
   border: 1px black solid;

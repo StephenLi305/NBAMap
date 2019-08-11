@@ -35,13 +35,29 @@
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
-
     </style>
 
 
   </head>
   <body>
     <div id='map'></div>
+    <modal class="modal hide fade" id="myModal">
+      <h3>
+        Golden State Warriors Visual Flight Simulation
+      </h3>
+      <p>
+        The motivation behind NBA Maps is my curiosity in the algorithm behind how a professional sports league comes out
+        with
+        an algorithm to create a schedule for a season.
+        <br />
+        <br />
+    
+        This application has a simulation of the Golden State Warriors' 2018-2019 NBA schedule and each roadtrip they
+        made throughout the season. The beauty behind this is to show how many stops they make on a roadtrip
+        before going back home.
+      </p>
+    
+    </modal>
     <header>Golden State Warriors 2018-19 season
     </br>
     </br>
@@ -64,34 +80,17 @@
     <button id='OAK15'>15th roadtrip (MEM, MIN)</button></br>
     <button id='OAK16'>16th roadtrip (LAL)</button></br>
     <button id='OAK17'>17th roadtrip (NOP, MEM)</button></br>
-    <!-- <button id='Remove'>Remove</button> -->
 
     <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js' charset='utf-8'></script>
     <script src='./bundle.js'></script>
 
-    <header class="modal hide fade" id="myModal">
-      <h3>
-        Golden State Warriors Visual Flight Simulation
-      </h3>
-      <p>
-        The motivation behind NBA Maps is my curiosity in the algorithm behind how a professional sports league comes out with
-        an algorithm to create a schedule for a season. I also have an interest in their travels and how each team travels over
-        the 7 months season across the country.
-      <br/>
-      <br/>
-        
-      This application has a simulation of the Golden State Warriors' 2018-2019 NBA schedule and each roadtrip they
-      made throughout the season. The beauty behind this is to show how many stops they make on a roadtrip
-      before going back home.
-      </p>
-      
-    </header>
+    
 
-
+    
     <div class="footer">
       <a href="https://github.com/StephenLi305" target="_blank"><i class="fab fa-github"></i></a>
       <a href="https://www.linkedin.com/in/stephenli305/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
       <a href="https://stephenli.fun/" target="_blank"><i class="fas fa-portrait"></i></a>
-    </div>
+      </div>
   </body>
 </html>
