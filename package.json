@@ -22,7 +22,7 @@
     "@turf/line-distance": "^4.7.3",
     "@turf/turf": "^5.1.6",
     "jquery-modal": "^0.9.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "mapbox-gl": "^0.50.0",
     "mysportsfeeds-node": "^2.0.1",
     "request": "^2.88.0"
